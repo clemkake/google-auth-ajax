@@ -3,7 +3,6 @@
 
   <head>
 
- <script type="text/javascript" src="access.js"></script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -131,7 +130,7 @@
         <div class="py-5 section-parallax" style="">
           <div class="container my-5 bg-light p-4">
             <div class="pull-right" style="margin-left: 900px;">
-              <a href="#" role="button" class="btn btn-primary ">Publish the feed</a>
+              <a href="#" role="button" id="feed-publish" class="btn btn-primary ">Publish the feed</a>
             </div>
             <div class="row mx-auto">
               <div class="col-md-12" style="">
@@ -172,6 +171,8 @@
         </div>
       </footer>
     </row>
+
+ <script type="text/javascript" src="access.js"></script>
 
   </body>
 

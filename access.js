@@ -49,11 +49,11 @@
       function postFeed() {
         generateFeed(true);
         gapi.client.request({
-          'path': "https://www.googleapis.com/content/v2/",
-           'method': POST,
+          'path': "https://www.googleapis.com/content/v2/"+mcid+"/products",
+           'method': 'POST',
            'params':[{
-               'merchantId' = mcid,
-               'resources' = 'product'
+               'merchantId':mcid,
+               'resources':'products'
            }],
           'body': [Products_list],
         }).then(function(response) {
@@ -88,6 +88,9 @@
         generateFeed(false);
         jQuery('.media-list').html(Products_list);
 
+      })
+      jQuery('#feed-publish').click(function(){
+        postFeed();
       })
 
 console.log('loaded');

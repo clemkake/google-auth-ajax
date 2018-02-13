@@ -1,6 +1,6 @@
 <?php
 $user = 'root';
-$pass = 'souris_123';
+$pass = '';
 $choice = $_GET['choice'];
 
 
@@ -11,48 +11,31 @@ try {
 
    	header('Content-type: application/json; charset=utf-8');
 
-
-    foreach($dbh->query('SELECT * from products limit 30') as $row) {
         ?>
-              "kind": "content#product",
-          	  "channel": "online",
-			  "contentLanguage": "EN",
-			  "offerId": "<?php echo $row['ID'] ?>",
-			  "targetCountry": "US",
-			  "condition": "New",
-			  "brand": "CLEMKAKE TEST",
-			  "gtin": "6478293098237",
-			  "itemGroupId": "<?php echo $row['ID'] ?>",
-			  "link": "<?php echo $row['Final URL'] ?>",
-			  "mpn": "<?php echo $row['ID'] ?>",
-			  "price": {
-			    "currency": "USD",
-			    "value": "<?php echo $row['price'] ?>",
-			  },
-			  "availability": "In stock",
-			  "description": "<?php echo $row['Item description'] ?>",
-			  "identifierExists": "false",
-			  "title": "<?php echo $row['Item title'] ?>",
-			  "imageLink": "<?php echo $row['image link'] ?>",
-			  "googleProductCategory": "<?php echo $row['Item category'] ?>",
-		
+
+        {
         <?php
-}
-   
+        // beginning of the json loop following with the closing parameter
+    foreach($dbh->query('SELECT * from products4 limit 30') as $row) {
+        ?>  
+              "kind": "content#product","channel": "online","contentLanguage": "EN","offerId": "<?php echo $row['id'] ?>","targetCountry": "US","condition": "New","brand": "CLEMKAKE TEST","gtin": "6478293098237","itemGroupId": "<?php echo $row['id'] ?>","link": "<?php echo $row['link'] ?>","mpn": "<?php echo $row['id'] ?>","price": {"currency": "USD","value": "<?php echo $row['price'] ?>" },"availability": "In stock","description": "<?php echo $row['description'] ?>","identifierExists": false,"title": "<?php echo $row['title'] ?>","imageLink": "<?php echo $row['image_link'] ?>","googleProductCategory": "<?php echo $row['google_product_category'] ?>",<?php
+} // end of the json loop following with the closing parameter?>}  
+<?php
+
 } else {
-     foreach($dbh->query('SELECT * from products limit 30') as $row) {
+     foreach($dbh->query('SELECT * from products4 limit 30') as $row) {
         ?>
         <li class="media p-list">
                         	
             <div class="media-left">
-              <a href="#"> <img alt="64x64" class="media-object" data-src="holder.js/64x64" style="width: 64px; height: 64px;" src="<?php echo $row['image link'] ?>"
+              <a href="#"> <img alt="64x64" class="media-object" data-src="holder.js/64x64" style="width: 64px; height: 64px;" src="<?php echo $row['image_link'] ?>"
                 data-holder-rendered="true"> </a>
             </div>
 	            <div class="media-body">
-	              <h4 class="media-heading"><?php echo $row['Item title'] ?></h4>
+	              <h4 class="media-heading"><?php echo $row['title'] ?></h4>
 	              <ol class="breadcrumb">
-	                <li><a class="active"><?php echo $row['ID'] ?></a> </li> </br>
-	                <li><a href="#">$ <?php echo $row['price'] ?></a></li>
+	                <li><a class="active"><?php echo $row['id'] ?></a> </li> </br>
+	                <li><a href="#"><?php echo $row['price'] ?></a></li>
 	              </ol>
 	            </div>
 
