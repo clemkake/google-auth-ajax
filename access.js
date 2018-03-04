@@ -1,5 +1,4 @@
       var Products_list = "";
-
       console.log('Plugin initialized');
       var request;
       try {
@@ -26,28 +25,17 @@
           if (request.readyState == 4 && request.status == 200) {
             var return_data = request.responseText;
             Products_list = return_data;
-            console.log('feed saved');
+            console.log('feed generated');
           }
         }
         request.send();
       }
 
       function createFeed() {
-        var url = "https://www.googleapis.com/content/v2/merchantId/products";
-        request.open("POST", url, true);
-        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        request.onreadystatechange = function() {
-          if (request.readyState == 4 && request.status == 200) {
-            var return_data = request.responseText;
-            products_list = return_data;
-            console.log('feed saved');
-          }
-        }
-        request.send();
+        
       }
 
       function postFeed() {
-        generateFeed(true);
         gapi.client.request({
           'path': "https://www.googleapis.com/content/v2/"+mcid+"/products",
            'method': 'POST',
@@ -55,7 +43,7 @@
                'merchantId':mcid,
                'resources':'products'
            }],
-          'body': [Products_list],
+          'body': JSON.parse(Products_list.trim()),
         }).then(function(response) {
           console.log(response);
         }, function(reason) {
@@ -70,7 +58,7 @@
         request.onreadystatechange = function() {
           if (request.readyState == 4 && request.status == 200) {
             var return_data = request.responseText;
-            result = return_data;
+            result = return_data; 
           }
         }
         request.send();
@@ -80,17 +68,21 @@
       function hideForm() {
         jQuery('.merchant-login').css('display', 'none');
         jQuery('.feed-creation').css('display', 'block');
+       generateFeed(false);
       }
 
       jQuery('#register').click(function() {
         jQuery('.feed-creation').css('display', 'none');
         jQuery('.Products-listing').css('display', 'block');
-        generateFeed(false);
-        jQuery('.media-list').html(Products_list);
-
       })
       jQuery('#feed-publish').click(function(){
         postFeed();
       })
 
 console.log('loaded');
+var timer = setInterval(function(){
+    if(jQuery('.media-list').length > 0 && jQuery('.media-list').is(':visible') ){
+          jQuery('.media-list').html(Products_list);
+      clearInterval(timer);
+      } 
+},500)
